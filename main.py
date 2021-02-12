@@ -1,5 +1,6 @@
-from telegram.ext import Updater, CommandHandler
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import os
+
 TOKEN = os.getenv("TOKEN")
 API_URL = "https://api.telegram.org/bot" + TOKEN
 
@@ -46,6 +47,9 @@ def about(update, context):
     # Bot gönderilen mesaja özel yanıt döndürüyor
     update.message.reply_text(message)
 
+def wrongCommand(update, context):
+    update.message.reply_text("Üzgünüm, gönderdiğiniz mesajı anlayamıyorum.")
+
 def main():
     #Telegram Api güncellemelerini yakalayan bir Updater oluşturduk
     updater = Updater(TOKEN, use_context=True)
@@ -56,6 +60,9 @@ def main():
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("yardim", help))
     dp.add_handler(CommandHandler("hakkinda", about))
+
+    # Yanlış bir komut girildiyse burada yakalanacak
+    dp.add_handler(MessageHandler(Filters.text, wrongCommand))
 
     run(updater)
 
