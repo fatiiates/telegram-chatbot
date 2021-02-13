@@ -1,5 +1,6 @@
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import os
+import sys
 
 TOKEN = os.getenv("TOKEN")
 API_URL = "https://api.telegram.org/bot" + TOKEN
@@ -24,7 +25,7 @@ elif mode == "prod":
         start(CallbackContext(updater.dispatcher))
         updater.idle()
 else:
-    logger.error("No MODE specified!")
+    print("Bir mod seçilmedi")
     sys.exit(1)
 
 def start(update, context):
