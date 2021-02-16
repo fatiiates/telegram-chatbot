@@ -11,6 +11,7 @@ mode = os.getenv("MODE")
 # Mod'a uyarlı, updater başlatma fonksiyonu belirler
 if mode == "dev":
     def run(updater):
+        print("Bot başlatıldı.")
         updater.start_polling()
 elif mode == "prod":
     def run(updater):
@@ -21,6 +22,7 @@ elif mode == "prod":
                               port=PORT,
                               url_path=TOKEN)
         updater.bot.set_webhook("https://{}.herokuapp.com/{}".format(HEROKU_APP_NAME, TOKEN))
+        print("Bot başlatıldı.")
         updater.idle()
 else:
     print("Bir mod seçilmedi")
