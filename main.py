@@ -1,4 +1,4 @@
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from telegram.ext import Updater, CommandHandler, CallbackContext, MessageHandler, Filters
 import os
 import sys
 
@@ -50,7 +50,7 @@ def about(update, context):
 
 def wrongCommand(update, context):
     update.message.reply_text("Üzgünüm, gönderdiğiniz mesajı anlayamıyorum.")
-
+    
 def main():
     #Telegram Api güncellemelerini yakalayan bir Updater oluşturduk
     updater = Updater(TOKEN, use_context=True)
@@ -61,7 +61,7 @@ def main():
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("yardim", help))
     dp.add_handler(CommandHandler("hakkinda", about))
-
+    
     # Yanlış bir komut girildiyse burada yakalanacak
     dp.add_handler(MessageHandler(Filters.text, wrongCommand))
 
